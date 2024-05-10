@@ -1,0 +1,12 @@
+{
+  "name": "my-video-game-collection",
+  "version": "1.0.0",
+  "description": "A web application designed for the purpose of cataloging information pertaining to video games you have experienced, want to experience, or are presently engaged with.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "git repository": "https://github.com/J-Ariola/my-video-game-collection",
+  "author": "J-Ariola",
+  "license": "MIT"
+}

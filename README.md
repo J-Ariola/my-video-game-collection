@@ -1,2 +1,2 @@
 # my-video-game-collection
-A web app to save information on video games you have played, want to play, or currently playing.
+A web application designed for the purpose of cataloging information pertaining to video games you have experienced, want to experience, or are presently engaged with.

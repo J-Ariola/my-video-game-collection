@@ -32,12 +32,12 @@ const auth = getAuth(app);
 //Use the command firebase emulators:start --only auth
 // connectAuthEmulator(auth, "http://localhost:9099");
 
-const loginEmailPassword = async (email: string, password: string) => {
+const loginEmailPassword = async (email: string, password: string) : Promise<string | undefined> => {
   const loginEmail = email;
   const loginPassword = password
   try {
     const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-    console.log(userCredential.user);
+    return userCredential.user.uid;
   } catch (e: unknown) {
     console.error(e);
   }
@@ -48,7 +48,6 @@ const createAccount = async (email: string, password: string) : Promise<string |
   const loginPassword = password
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
-    console.log(userCredential.user.uid);
     return userCredential.user.uid;
   } catch (e: unknown) {
     console.error(e);

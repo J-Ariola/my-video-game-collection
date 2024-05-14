@@ -45,7 +45,18 @@ function Login():React.JSX.Element {
     try{
       if (!email || !password) throw "Invalid User/Password";
       // console.log("Create user: ", email, password);
-      await createAccount(email,password);
+      const newUserUid = await createAccount(email,password);
+      const data = {
+        email: email,
+        uid: newUserUid,
+      }
+      const response = await fetch(`${BASE_URL}/users`, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data),
+      });
+      const resData = await response.json();
+      console.log(resData);
       navigate("/");
     } catch (err) {
       console.error(err);

@@ -43,12 +43,13 @@ const loginEmailPassword = async (email: string, password: string) => {
   }
 }
 
-const createAccount = async (email: string, password: string) => {
+const createAccount = async (email: string, password: string) : Promise<string | undefined> => {
   const loginEmail = email;
   const loginPassword = password
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
-    console.log(userCredential.user);
+    console.log(userCredential.user.uid);
+    return userCredential.user.uid;
   } catch (e: unknown) {
     console.error(e);
   }

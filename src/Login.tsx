@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
+import { loginEmailPassword, createAccount } from "./../config/firebaseConfig"
 // @MUI
 import {
   Box,
@@ -29,7 +30,8 @@ function Login():React.JSX.Element {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const paperStyle = {
     p:2,
     width: "100%",
@@ -39,19 +41,23 @@ function Login():React.JSX.Element {
     gap: 1,
   };
 
-  const handleCreateUser = () => {
+  const handleCreateUser = async () => {
     try{
       if (!email || !password) throw "Invalid User/Password";
-      console.log("Create user: ", email, password);
+      // console.log("Create user: ", email, password);
+      await createAccount(email,password);
+      navigate("/");
     } catch (err) {
       console.error(err);
     }
   } 
   
-  const handleLoginUser = () => {
+  const handleLoginUser = async () => {
     try{
       if (!email || !password) throw "Invalid User/Password";
-      console.log("Login user: ", email, password);
+      // console.log("Login user: ", email, password);
+      await loginEmailPassword(email, password);
+      navigate("/");
     } catch (err) {
       console.error(err);
     }

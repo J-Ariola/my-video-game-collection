@@ -1,29 +1,29 @@
+import { useEffect } from 'react';
+import { GameDetails } from '../globals';
 import './GameCardSmall.css';
 import { Paper,
   Typography,
   Grid,
-  Box
+  Box,
+  CardMedia
 } from "@mui/material";
 
-// interface imageURLs {
-//   'medium_url'?: string,
-// }
-
 type Props = {
-  title: string,
-  imgURLs?: {medium_url?: string},
-  deck?: string,
-  platforms?: Object[],
+  title: string;
+  imgURL?: string;
 }
 
 const GameCardSmall = (props: Props):React.JSX.Element => {
-  const { title, imgURLs, deck, platforms } = props;
-  const imageSrc: string | undefined = (imgURLs) ? imgURLs.medium_url : "";
-
+  const {title, imgURL} = props;
+  useEffect(() => {
+    console.log(imgURL);
+  }, [imgURL])
   return (
     <Grid item xs={4}>
       <Paper elevation={5}>
-        <img className="cardImage" src={imageSrc}/>
+        <CardMedia component="img"
+        image={imgURL}
+        />
         <Box paddingX={1}>
         <Typography variant='h4'>{title}</Typography>
         </Box>

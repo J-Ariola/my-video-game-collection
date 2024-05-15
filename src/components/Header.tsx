@@ -15,6 +15,10 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import Logout from '@mui/icons-material/Logout';
+import { logout } from '../config/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,13 +60,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+type Props = {
+  searchBarOnChange: (text: string) => void,
+}
+
+export default function PrimarySearchAppBar(props: Props): React.JSX.Element {
+  const { searchBarOnChange } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -80,6 +91,11 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -99,7 +115,16 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>
+        <IconButton
+          size="large"
+          aria-label="logout user"
+          color="inherit"
+        >
+         <Logout/> 
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>
     </Menu>
   );
 
@@ -120,25 +145,23 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
+      </MenuItem> */}
+      <MenuItem onClick={handleLogout}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="logout user"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
+         <Logout/> 
         </IconButton>
-        <p>Notifications</p>
+        <p>Logout</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -176,6 +199,7 @@ export default function PrimarySearchAppBar() {
           >
             My Video Game Collection
           </Typography>
+          {/* TODO: Search by enter not by per letter */}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -183,6 +207,7 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => searchBarOnChange(e.target.value)}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

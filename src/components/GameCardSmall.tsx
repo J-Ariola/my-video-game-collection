@@ -1,20 +1,24 @@
 import { useEffect } from 'react';
 import { GameDetails } from '../globals';
 import './GameCardSmall.css';
-import { Paper,
+import {
+  Paper,
   Typography,
   Grid,
   Box,
-  CardMedia
+  CardMedia,
+  Container
 } from "@mui/material";
+import AddToCollectionsMenu from './AddToCollectionsMenu';
 
 type Props = {
   title: string;
   imgURL?: string;
+  guid: string;
 }
 
 const GameCardSmall = (props: Props):React.JSX.Element => {
-  const {title, imgURL} = props;
+  const {title, imgURL, guid} = props;
   return (
     <Grid item xs={4}>
       <Paper elevation={5}>
@@ -23,6 +27,9 @@ const GameCardSmall = (props: Props):React.JSX.Element => {
         />
         <Box paddingX={1}>
         <Typography variant='h4'>{title}</Typography>
+        <Container sx={{paddingBottom: "0.5em"}}>
+          <AddToCollectionsMenu/>
+        </Container>
         </Box>
       </Paper>
     </Grid>

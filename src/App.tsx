@@ -81,7 +81,7 @@ function App():React.JSX.Element {
       <Container>
         <Grid container spacing={5}>
           { (gameDetails) ? (gameDetails.map((game, index) => {
-              return <GameCardSmall title={game.name} imgURL={game.imgURL} key={index} />
+              return <GameCardSmall title={game.name} imgURL={game.imgURL} key={index} guid={game.guid} />
             })
            ) : (<></>)
           }

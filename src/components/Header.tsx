@@ -199,6 +199,7 @@ export default function PrimarySearchAppBar(props: Props): React.JSX.Element {
           >
             My Video Game Collection
           </Typography>
+          {/* TODO: Search by enter not by per letter */}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

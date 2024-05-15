@@ -11,19 +11,6 @@ import GameCardSmall from './components/GameCardSmall';
 
 const BASE_URL: string | null = import.meta.env.VITE_BASE_URL;
 
-type Props = {
-  title:string;
-  onClick():void;
-}
-
-const ClickCountButton = ({ title, onClick }: Props): React.JSX.Element => {
-  return (
-    <button onClick={onClick}>
-    {title}
-    </button>
-  )
-}
-
 function App():React.JSX.Element {
   const [count, setCount] = useState<number>(0);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -37,8 +24,12 @@ function App():React.JSX.Element {
   }, []);
 
   useEffect(() => {
-    handleDisplayCards();
+    if (gameDetails) handleDisplayCards();
   }, [gameDetails]);
+
+  useEffect(() => {
+    if (searchText) handleSearchGameDetails(searchText);
+  },[searchText])
 
   const handleSetSearchText = (text: string): void => {
     setSearchText(text);
@@ -53,7 +44,7 @@ function App():React.JSX.Element {
       const userIdToken: string = await user.getIdToken(true);
       setIsLoggedIn(true);
       handleOnMount(userIdToken);
-      await handleSearchGameDetails();
+      await handleSearchGameDetails("");
     })
   }
 
@@ -69,24 +60,30 @@ function App():React.JSX.Element {
     }
   }
 
-  const handleSearchGameDetails = async () => {
-    const searchedTitle = "nier"
-    const gameData = await fetch (`${BASE_URL}/game-details?title=${searchedTitle}`, {
-      method: "GET",
-    });
-    const convertedData:GameDetails[] = await gameData.json();
-    setGameDetails(convertedData);
+  const handleSearchGameDetails = async (searchText: string) => {
+    // const searchedTitle = "nier"
+    try {
+      if (!auth.currentUser) throw "no current user";
+      const idToken: string = await auth.currentUser.getIdToken(true);
+      const gameData = await fetch (`${BASE_URL}/game-details?title=${searchText}`, {
+        method: "GET",
+        headers: {Authorization: 'Bearer ' + idToken}
+      });
+      const convertedData:GameDetails[] = await gameData.json();
+      setGameDetails(convertedData);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   const handleDisplayCards = (): React.JSX.Element => {
-    console.table(gameDetails);
     return (
       <Container>
         <Grid container spacing={5}>
-          {
-            gameDetails.map((game, index) => {
+          { (gameDetails) ? (gameDetails.map((game, index) => {
               return <GameCardSmall title={game.name} imgURL={game.imgURL} key={index} />
             })
+           ) : (<></>)
           }
         </Grid>
       </Container>
@@ -96,7 +93,6 @@ function App():React.JSX.Element {
   return (
     <Box>
       <Header searchBarOnChange = {handleSetSearchText}/>
-      <ClickCountButton title={"Click button: " + count} onClick={() => setCount(count + 1)}/>
       {handleDisplayCards()}
     </Box>
   )

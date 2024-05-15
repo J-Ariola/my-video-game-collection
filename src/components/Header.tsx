@@ -115,7 +115,16 @@ export default function PrimarySearchAppBar(props: Props): React.JSX.Element {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>
+        <IconButton
+          size="large"
+          aria-label="logout user"
+          color="inherit"
+        >
+         <Logout/> 
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>
     </Menu>
   );
 
@@ -136,14 +145,14 @@ export default function PrimarySearchAppBar(props: Props): React.JSX.Element {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleLogout}>
         <IconButton
           size="large"

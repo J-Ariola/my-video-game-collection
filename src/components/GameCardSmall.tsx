@@ -15,9 +15,6 @@ type Props = {
 
 const GameCardSmall = (props: Props):React.JSX.Element => {
   const {title, imgURL} = props;
-  useEffect(() => {
-    console.log(imgURL);
-  }, [imgURL])
   return (
     <Grid item xs={4}>
       <Paper elevation={5}>

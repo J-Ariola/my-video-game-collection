@@ -77,7 +77,7 @@ function App():React.JSX.Element {
 
   const handleDisplayCards = (): React.JSX.Element => {
     return (
-      <Container>
+      <Container sx={{marginTop: "40px"}}>
         <Grid container spacing={5}>
           { (gameDetails) ? (gameDetails.map((game, index) => {
               return <GameCardSmall title={game.name} imgURL={game.imgURL} key={index} guid={game.guid} />

@@ -8,7 +8,6 @@ import {
   Container
 } from "@mui/material";
 import AddToCollectionsMenu from './AddToCollectionsMenu';
-import { Height } from '@mui/icons-material';
 
 type Props = {
   title: string;

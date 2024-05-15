@@ -3,7 +3,6 @@ import './App.css';
 import Header from './components/Header';
 import { auth } from "./config/firebaseConfig"
 import { onAuthStateChanged } from 'firebase/auth';
-import { getCurrentUserIdToken } from './utils/firebaseUtils';
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Grid } from '@mui/material';
 import { GameDetails } from './globals';
@@ -12,7 +11,6 @@ import GameCardSmall from './components/GameCardSmall';
 const BASE_URL: string | null = import.meta.env.VITE_BASE_URL;
 
 function App():React.JSX.Element {
-  const [count, setCount] = useState<number>(0);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [gameDetails, setGameDetails] = useState<GameDetails[]> ([]);
   const [searchText, setSearchText] = useState<string>("");
@@ -54,7 +52,7 @@ function App():React.JSX.Element {
           method: "GET",
           headers: {Authorization: 'Bearer ' + idToken}
         });
-        const data = await response.json();
+        await response.json();
     } catch (e) {
       console.error(e);
     }
@@ -62,6 +60,7 @@ function App():React.JSX.Element {
 
   const handleSearchGameDetails = async (searchText: string) => {
     // const searchedTitle = "nier"
+    console.log("isLogged", isLoggedIn )
     try {
       if (!auth.currentUser) throw "no current user";
       const idToken: string = await auth.currentUser.getIdToken(true);
@@ -78,7 +77,7 @@ function App():React.JSX.Element {
 
   const handleDisplayCards = (): React.JSX.Element => {
     return (
-      <Container>
+      <Container sx={{marginTop: "40px"}}>
         <Grid container spacing={5}>
           { (gameDetails) ? (gameDetails.map((game, index) => {
               return <GameCardSmall title={game.name} imgURL={game.imgURL} key={index} guid={game.guid} />

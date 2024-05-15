@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginEmailPassword, createAccount } from "./config/firebaseConfig"
 // @MUI
 import {
   Box,
   Button,
   Container,
-  Fade,
   FormControl,
   IconButton,
   InputAdornment,
@@ -65,7 +64,8 @@ function Login():React.JSX.Element {
   const handleLoginUser = async () => {
     try{
       if (!email || !password) throw "Invalid User/Password";
-      const uid = await loginEmailPassword(email, password);
+      // const uid = await loginEmailPassword(email, password);
+      await loginEmailPassword(email, password);
       navigate("/");
     } catch (err) {
       console.error(err);

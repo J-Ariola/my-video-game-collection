@@ -16,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Logout from '@mui/icons-material/Logout';
-import { logout } from '../../config/firebaseConfig';
+import { logout } from '../config/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
 

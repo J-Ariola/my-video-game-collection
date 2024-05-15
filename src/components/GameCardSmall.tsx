@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { GameDetails } from '../globals';
 import './GameCardSmall.css';
 import {
   Paper,
@@ -18,7 +16,7 @@ type Props = {
 }
 
 const GameCardSmall = (props: Props):React.JSX.Element => {
-  const {title, imgURL, guid} = props;
+  const {title, imgURL} = props;
   return (
     <Grid item xs={4}>
       <Paper elevation={5}>

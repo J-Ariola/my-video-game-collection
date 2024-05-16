@@ -4,7 +4,7 @@ import Header from './components/Header';
 import { auth } from "./config/firebaseConfig"
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { Box, ButtonBase, Container, Grid } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import { GameDetails } from './globals';
 import GameCardSmall from './components/GameCardSmall';
 
@@ -41,6 +41,7 @@ function App():React.JSX.Element {
         return navigate("/login");
       }
       const userIdToken: string = await user.getIdToken(true);
+      console.log("Logged in", isLoggedIn);
       setIsLoggedIn(true);
       handleOnMount(userIdToken);
       await handleSearchGameDetails("");
@@ -63,7 +64,7 @@ function App():React.JSX.Element {
     try{
       if (!auth.currentUser) throw "no current user";
         const idToken: string = await auth.currentUser.getIdToken(true);
-        console.log("Getting Token for handling view");
+        // console.log("Getting Token for handling view");
         await Promise.all(gameDetails.map((gameDetail) => {
           return fetch(`${BASE_URL}/my-games/${gameDetail.guid}`, {
             method: "GET",
@@ -87,7 +88,6 @@ function App():React.JSX.Element {
 
   const handleSearchGameDetails = async (searchText: string) => {
     // const searchedTitle = "nier"
-    console.log("isLogged", isLoggedIn )
     try {
       if (!auth.currentUser) throw "no current user";
       const idToken: string = await auth.currentUser.getIdToken(true);

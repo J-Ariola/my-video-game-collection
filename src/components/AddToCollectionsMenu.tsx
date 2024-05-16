@@ -39,10 +39,9 @@ export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
       const idToken: string = await auth.currentUser.getIdToken(true);
 
       if (oldStatus === -1) {
-        
-        console.log("Add entry to database");
+        console.log("Add entry to database", idToken);
       } else {
-        console.log("Update entry to database")
+        console.log("Update entry to database", idToken);
       }
       setCurrentStatus(newStatus);
     } catch (e) {

@@ -28,33 +28,4 @@ A web application designed for the purpose of cataloging information pertaining 
 - Development CLI: `npm run dev`
 
   ## Documentation
-                           +-----------------+
-                           | React Component |
-                           |      App        |
-                           +-----------------+
-                                   |
-                                   v
-                      +-------------------------+
-                      | Header (Search Bar)     |
-                      +-------------------------+
-                                   |
-                                   v
-                      +-------------------------+
-                      | GameCardSmall Component |
-                      +-------------------------+
-                                   |
-                                   v
-                        +-------------------+
-                        | AddToCollectionsMenu|
-                        +-------------------+
-                                   |
-                                   v
-                      +-------------------------+
-                      | Firebase Authentication |
-                      +-------------------------+
-                                   |
-                                   v
-                         +-----------------+
-                         | Backend API     |
-                         |   (BASE_URL)    |
-                         +-----------------+
+

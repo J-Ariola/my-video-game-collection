@@ -6,15 +6,55 @@ A web application designed for the purpose of cataloging information pertaining 
 - Project Structure: Microservice
 - Programming Language: Typescript
 - Frontend Library: React
-- Backend Framework: Node.js
+- Backend Framework: Express using Prisma
 - Database: PostgreSQL
 - Videogame Database API: Giant Bomb
 - User Authentication: Firebase
 - Styling: CSS, MUI
 - Build Tools: Vite
 
+## Disclaimer
+- The corresponding backend code is currently private. Please message me for details.
+
 ## Installation
 
 - Prequisites: 
   1. Firebase (https://firebase.google.com/)
   2. Giant Bomb API Key (https://www.giantbomb.com/api/)
+
+- Install dependencies `npm install`
+- Change `env.example` to `.env` and replace the placeholders.
+
+- Development CLI: `npm run dev`
+
+  ## Documentation
+                           +-----------------+
+                           | React Component |
+                           |      App        |
+                           +-----------------+
+                                   |
+                                   v
+                      +-------------------------+
+                      | Header (Search Bar)     |
+                      +-------------------------+
+                                   |
+                                   v
+                      +-------------------------+
+                      | GameCardSmall Component |
+                      +-------------------------+
+                                   |
+                                   v
+                        +-------------------+
+                        | AddToCollectionsMenu|
+                        +-------------------+
+                                   |
+                                   v
+                      +-------------------------+
+                      | Firebase Authentication |
+                      +-------------------------+
+                                   |
+                                   v
+                         +-----------------+
+                         | Backend API     |
+                         |   (BASE_URL)    |
+                         +-----------------+

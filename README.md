@@ -96,6 +96,7 @@ Special thanks to everybody at Code Chrysalis and
 - **[@mui/material](https://mui.com/material-ui/getting-started/installation/)** - React components for faster and easier web development with Material Design
 - **[firebase](https://firebase.google.com/)** - A comprehensive app development platform from Google
 - **[firebase](https://firebase.google.com/docs/auth)** - a secure and easy-to-implement solution for user authentication, allowing developers to authenticate users via email/password and more, seamlessly integrating with Firebase's suite of services
+- **[giant bomb api](https://www.giantbomb.com/api/)** - provides developers access to a vast array of gaming-related data, offering a treasure trove of information for building innovative gaming applications.
 - **[prisma](https://www.prisma.io/)** - a powerful database toolkit that simplifies database workflows and enables seamless interaction with databases through a type-safe and intuitive API
 - **[react](https://reactjs.org/)** - A JavaScript library for building user interfaces
 - **[react-router-dom](https://reactrouter.com/web/guides/quick-start)** - A routing library for React applications

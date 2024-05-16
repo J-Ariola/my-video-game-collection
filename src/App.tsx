@@ -14,6 +14,7 @@ function App():React.JSX.Element {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [gameDetails, setGameDetails] = useState<GameDetails[]> ([]);
   const [searchText, setSearchText] = useState<string>("");
+  const [viewedUserGameEntries, setViewedUserGameEntries] = useState<number[]>([]);
 
   const navigate = useNavigate();
 
@@ -40,6 +41,7 @@ function App():React.JSX.Element {
         return navigate("/login");
       }
       const userIdToken: string = await user.getIdToken(true);
+      console.log("Logged in", isLoggedIn);
       setIsLoggedIn(true);
       handleOnMount(userIdToken);
       await handleSearchGameDetails("");
@@ -58,9 +60,34 @@ function App():React.JSX.Element {
     }
   }
 
+  const handleViewedUserGameEntries = async (gameDetails: GameDetails[]) => {
+    try{
+      if (!auth.currentUser) throw "no current user";
+        const idToken: string = await auth.currentUser.getIdToken(true);
+        // console.log("Getting Token for handling view");
+        await Promise.all(gameDetails.map((gameDetail) => {
+          return fetch(`${BASE_URL}/my-games/${gameDetail.guid}`, {
+            method: "GET",
+            headers: {Authorization: 'Bearer ' + idToken}
+          })
+        }))
+        .then((entries) => {
+          return Promise.all(entries.map((entry) => entry.json()))
+        })
+        .then((e) => {
+          return setViewedUserGameEntries(e.map( (entry) => {
+            if (!entry) return -1;
+            return (entry.status) ? entry.status : -1;
+          }));
+      });
+      return;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   const handleSearchGameDetails = async (searchText: string) => {
     // const searchedTitle = "nier"
-    console.log("isLogged", isLoggedIn )
     try {
       if (!auth.currentUser) throw "no current user";
       const idToken: string = await auth.currentUser.getIdToken(true);
@@ -69,6 +96,7 @@ function App():React.JSX.Element {
         headers: {Authorization: 'Bearer ' + idToken}
       });
       const convertedData:GameDetails[] = await gameData.json();
+      await handleViewedUserGameEntries(convertedData);
       setGameDetails(convertedData);
     } catch (e) {
       console.error(e);
@@ -80,7 +108,7 @@ function App():React.JSX.Element {
       <Container sx={{marginTop: "40px"}}>
         <Grid container spacing={5}>
           { (gameDetails) ? (gameDetails.map((game, index) => {
-              return <GameCardSmall title={game.name} imgURL={game.imgURL} key={index} guid={game.guid} />
+              return <GameCardSmall status={viewedUserGameEntries[index]} title={game.name} imgURL={game.imgURL} deck={game.deck} key={index} guid={game.guid} />
             })
            ) : (<></>)
           }

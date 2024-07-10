@@ -9,6 +9,7 @@ import { GameDetails } from './globals';
 import GameCardSmall from './components/GameCardSmall';
 
 const BASE_URL: string | null = import.meta.env.VITE_BASE_URL;
+const searchDelayTime: number = 1000;
 
 function App():React.JSX.Element {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -27,7 +28,13 @@ function App():React.JSX.Element {
   }, [gameDetails]);
 
   useEffect(() => {
-    if (searchText) handleSearchGameDetails(searchText);
+    const delayDebounceId = setTimeout(() => {
+      handleSearchGameDetails(searchText);
+    }, searchDelayTime);
+
+    return () => {
+      clearTimeout(delayDebounceId);
+    }
   },[searchText])
 
   const handleSetSearchText = (text: string): void => {

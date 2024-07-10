@@ -14,6 +14,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login/>
   },
+  //TODO: Make a user page where they can see their entire collection
   {
     path: "*",
   }

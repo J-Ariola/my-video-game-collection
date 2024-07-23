@@ -73,7 +73,7 @@ function App():React.JSX.Element {
         const idToken: string = await auth.currentUser.getIdToken(true);
         // console.log("Getting Token for handling view");
         await Promise.all(gameDetails.map((gameDetail) => {
-          return fetch(`${BASE_URL}/my-games/${gameDetail.guid}`, {
+          return fetch(`${BASE_URL}/user-entries/${gameDetail.guid}`, {
             method: "GET",
             headers: {Authorization: 'Bearer ' + idToken}
           })

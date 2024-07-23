@@ -37,7 +37,7 @@ function MyGames():React.JSX.Element {
       if (!auth.currentUser)throw "No logged in user";
       const { uid } = auth.currentUser;
 
-      const response = await fetch(`${BASE_URL}/my-games?uid=${uid}`, {
+      const response = await fetch(`${BASE_URL}/user-entries?uid=${uid}`, {
         method: "GET",
       });
 

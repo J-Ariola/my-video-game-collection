@@ -18,6 +18,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import Logout from '@mui/icons-material/Logout';
 import { logout } from '../config/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -115,6 +116,7 @@ export default function PrimarySearchAppBar(props: Props): React.JSX.Element {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={() => navigate("/my-games")}> My Games</MenuItem>
       <MenuItem onClick={handleLogout}>
         <IconButton
           size="large"
@@ -191,14 +193,18 @@ export default function PrimarySearchAppBar(props: Props): React.JSX.Element {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
+          <Button variant='text' color='inherit'
+          onClick={() => navigate("/")}>
+            <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            My Video Game Collection
-          </Typography>
+            >
+              My Video Game Collection
+            </Typography>
+          </Button>
+          
           {/* TODO: Search by enter not by per letter */}
           <Search>
             <SearchIconWrapper>

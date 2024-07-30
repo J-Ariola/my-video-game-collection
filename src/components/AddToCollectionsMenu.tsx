@@ -3,8 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
-// import { auth } from "./../config/firebaseConfig"
-import useGameEntryStatus from '../custom_hooks/useGameEntryStatus';
+import { auth } from "./../config/firebaseConfig"
 
 const convertStatusToString = (status: number) : string => {
   switch(status){
@@ -16,8 +15,6 @@ const convertStatusToString = (status: number) : string => {
       return "Completed";
     case 4: 
       return "Full Completion";
-    case 5: 
-      return "Dropped";
     default:
       return "Add To Collection";
   }
@@ -30,42 +27,34 @@ type Props = {
 
 export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
   const { status } = props;
-  const { state, 
-    setStatusToPlanToPlay,
-    setStatusToPlaying,
-    setStatusToCompleted,
-    setStatusToFullCompletion,
-    setStatusToDropped,
-   } = useGameEntryStatus({ status });
-  // const [currentStatus, setCurrentStatus] = useState<number>(status);
+  const [currentStatus, setCurrentStatus] = useState<number>(status);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   useEffect(() => {
-    convertStatusToString(state.status)
-  },[state.status])
+    convertStatusToString(currentStatus)
+  },[currentStatus])
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  
-  // const handleUpdateGameEntry = async (oldStatus: number, newStatus: number) => {
-  //   try {
-  //     if (!auth.currentUser) throw "no current user";
-  //     const idToken: string = await auth.currentUser.getIdToken(true);
+  const handleUpdateGameEntry = async (oldStatus: number, newStatus: number) => {
+    try {
+      if (!auth.currentUser) throw "no current user";
+      const idToken: string = await auth.currentUser.getIdToken(true);
 
-  //     if (oldStatus === -1) {
-  //       console.log("Add entry to database", idToken);
-  //     } else {
-  //       console.log("Update entry to database", idToken);
-  //     }
-  //     setCurrentStatus(newStatus);
-  //   } catch (e) {
-  //     console.error(e);
-  //   } finally {
-  //     setAnchorEl(null);
-  //   }
-  // }
+      if (oldStatus === -1) {
+        console.log("Add entry to database", idToken);
+      } else {
+        console.log("Update entry to database", idToken);
+      }
+      setCurrentStatus(newStatus);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setAnchorEl(null);
+    }
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -81,7 +70,7 @@ export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        {convertStatusToString(state.status)}
+        {convertStatusToString(currentStatus)}
       </Button>
       <Menu
         id="basic-menu"
@@ -92,11 +81,11 @@ export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem divider={true} onClick={setStatusToPlanToPlay}>Plan To Play</MenuItem>
-        <MenuItem divider={true} onClick={setStatusToPlaying}>Playing</MenuItem>
-        <MenuItem divider={true} onClick={setStatusToCompleted}>Completed</MenuItem>
-        <MenuItem divider={true} onClick={setStatusToFullCompletion}>Full Completion</MenuItem>
-        <MenuItem onClick={setStatusToDropped}>Dropped</MenuItem>
+        <MenuItem divider={true} onClick={() => handleUpdateGameEntry(currentStatus, 1)}>Plan To Play</MenuItem>
+        <MenuItem divider={true} onClick={() => handleUpdateGameEntry(currentStatus, 2)}>Playing</MenuItem>
+        <MenuItem divider={true} onClick={() => handleUpdateGameEntry(currentStatus, 3)}>Completed</MenuItem>
+        <MenuItem divider={true} onClick={() => handleUpdateGameEntry(currentStatus, 4)}>Full Completion</MenuItem>
+        <MenuItem onClick={() => handleUpdateGameEntry(currentStatus, 5)}>Dropped</MenuItem>
       </Menu>
     </Box>
   );

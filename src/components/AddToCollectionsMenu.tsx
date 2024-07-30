@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import { auth } from "./../config/firebaseConfig"
+import { GameEntry } from '../globals';
 
 const convertStatusToString = (status: number) : string => {
   switch(status){
@@ -15,10 +16,14 @@ const convertStatusToString = (status: number) : string => {
       return "Completed";
     case 4: 
       return "Full Completion";
+    case 5: 
+      return "Dropped";
     default:
       return "Add To Collection";
   }
 };
+
+const BASE_URL: string | null = import.meta.env.VITE_BASE_URL;
 
 type Props = {
   guid: string;
@@ -26,7 +31,7 @@ type Props = {
 };
 
 export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
-  const { status } = props;
+  const { guid, status } = props;
   const [currentStatus, setCurrentStatus] = useState<number>(status);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -40,13 +45,23 @@ export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
   };
   const handleUpdateGameEntry = async (oldStatus: number, newStatus: number) => {
     try {
+      if (oldStatus === newStatus) return;
+      
       if (!auth.currentUser) throw "no current user";
-      const idToken: string = await auth.currentUser.getIdToken(true);
+      const uid = auth.currentUser.uid;
 
       if (oldStatus === -1) {
-        console.log("Add entry to database", idToken);
+        console.log("Add entry to database", uid);
+        const body = { guid, status: newStatus } as {guid: string, status: number};
+        const res = await fetch(`${BASE_URL}/user-entries/?uid=${uid}`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(body),
+        });
+        const data = (await res.json()) as GameEntry;
+        console.log(data.status);
       } else {
-        console.log("Update entry to database", idToken);
+        console.log("Update entry to database", uid);
       }
       setCurrentStatus(newStatus);
     } catch (e) {

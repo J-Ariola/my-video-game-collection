@@ -49,16 +49,6 @@ export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
     setAnchorEl(event.currentTarget);
   };
   
-  const handleUpdateGameEntryStatus = ( callback: () => void ) => {
-    try {
-      callback();
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setAnchorEl(null);
-    }
-  }
-
   // const handleUpdateGameEntry = async (oldStatus: number, newStatus: number) => {
   //   try {
   //     if (!auth.currentUser) throw "no current user";
@@ -102,11 +92,11 @@ export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem divider={true} onClick={() => handleUpdateGameEntryStatus(setStatusToPlanToPlay)}>Plan To Play</MenuItem>
-        <MenuItem divider={true} onClick={() => handleUpdateGameEntryStatus(setStatusToPlaying)}>Playing</MenuItem>
-        <MenuItem divider={true} onClick={() => handleUpdateGameEntryStatus(setStatusToCompleted)}>Completed</MenuItem>
-        <MenuItem divider={true} onClick={() => handleUpdateGameEntryStatus(setStatusToFullCompletion)}>Full Completion</MenuItem>
-        <MenuItem onClick={() => handleUpdateGameEntryStatus(setStatusToDropped)}>Dropped</MenuItem>
+        <MenuItem divider={true} onClick={setStatusToPlanToPlay}>Plan To Play</MenuItem>
+        <MenuItem divider={true} onClick={setStatusToPlaying}>Playing</MenuItem>
+        <MenuItem divider={true} onClick={setStatusToCompleted}>Completed</MenuItem>
+        <MenuItem divider={true} onClick={setStatusToFullCompletion}>Full Completion</MenuItem>
+        <MenuItem onClick={setStatusToDropped}>Dropped</MenuItem>
       </Menu>
     </Box>
   );

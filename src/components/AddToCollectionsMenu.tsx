@@ -4,7 +4,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import { auth } from "./../config/firebaseConfig"
-import { GameEntry } from '../globals';
 
 const convertStatusToString = (status: number) : string => {
   switch(status){

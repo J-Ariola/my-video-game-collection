@@ -24,8 +24,8 @@ function App():React.JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (gameDetails) handleDisplayCards();
-  }, [gameDetails]);
+    if (gameDetails && viewedUserGameEntries) handleDisplayCards();    
+  }, [gameDetails, viewedUserGameEntries]);
 
   useEffect(() => {
     const delayDebounceId = setTimeout(() => {
@@ -48,7 +48,6 @@ function App():React.JSX.Element {
         return navigate("/login");
       }
       const userIdToken: string = await user.getIdToken(true);
-      console.log("Logged in", isLoggedIn);
       setIsLoggedIn(true);
       handleOnMount(userIdToken);
       await handleSearchGameDetails("");
@@ -95,7 +94,6 @@ function App():React.JSX.Element {
   }
 
   const handleSearchGameDetails = async (searchText: string) => {
-    // const searchedTitle = "nier"
     try {
       if (!auth.currentUser) throw "no current user";
       const idToken: string = await auth.currentUser.getIdToken(true);

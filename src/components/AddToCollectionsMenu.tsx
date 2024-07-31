@@ -37,6 +37,10 @@ export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
   const open = Boolean(anchorEl);
 
   useEffect(() => {
+    setCurrentStatus(status);
+  }, [status]);
+
+  useEffect(() => {
     convertStatusToString(currentStatus)
   },[currentStatus])
 

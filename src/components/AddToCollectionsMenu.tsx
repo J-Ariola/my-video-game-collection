@@ -51,17 +51,21 @@ export default function AddToCollectionsMenu(props: Props):React.JSX.Element {
       const uid = auth.currentUser.uid;
 
       if (oldStatus === -1) {
-        console.log("Add entry to database", uid);
         const body = { guid, status: newStatus } as {guid: string, status: number};
         const res = await fetch(`${BASE_URL}/user-entries/?uid=${uid}`, {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify(body),
         });
-        const data = (await res.json()) as GameEntry;
-        console.log(data.status);
+        if (res.status !== 201) throw "Did not create user entry successfully";
       } else {
-        console.log("Update entry to database", uid);
+        const body = { guid, status: newStatus } as {guid: string, status: number};
+        const res = await fetch(`${BASE_URL}/user-entries/status/?uid=${uid}`, {
+          method: "PATCH",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(body),
+        });
+        if (res.status !== 200) throw "Did not patch user entry status successfully";
       }
       setCurrentStatus(newStatus);
     } catch (e) {

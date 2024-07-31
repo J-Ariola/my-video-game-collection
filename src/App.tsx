@@ -24,8 +24,8 @@ function App():React.JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (gameDetails) handleDisplayCards();
-  }, [gameDetails]);
+    if (gameDetails && viewedUserGameEntries) handleDisplayCards();    
+  }, [gameDetails, viewedUserGameEntries]);
 
   useEffect(() => {
     const delayDebounceId = setTimeout(() => {
@@ -48,7 +48,6 @@ function App():React.JSX.Element {
         return navigate("/login");
       }
       const userIdToken: string = await user.getIdToken(true);
-      console.log("Logged in", isLoggedIn);
       setIsLoggedIn(true);
       handleOnMount(userIdToken);
       await handleSearchGameDetails("");
@@ -70,16 +69,17 @@ function App():React.JSX.Element {
   const handleViewedUserGameEntries = async (gameDetails: GameDetails[]) => {
     try{
       if (!auth.currentUser) throw "no current user";
-        const idToken: string = await auth.currentUser.getIdToken(true);
-        // console.log("Getting Token for handling view");
+        const { uid } = auth.currentUser;
         await Promise.all(gameDetails.map((gameDetail) => {
-          return fetch(`${BASE_URL}/user-entries/${gameDetail.guid}`, {
+          return fetch(`${BASE_URL}/user-entries/${gameDetail.guid}?uid=${uid}`, {
             method: "GET",
-            headers: {Authorization: 'Bearer ' + idToken}
           })
         }))
-        .then((entries) => {
-          return Promise.all(entries.map((entry) => entry.json()))
+        .then((responses) => {
+          return Promise.all(responses.map((res) => {
+            if (res.status === 200) return res.json();
+            else return null;
+            }))
         })
         .then((e) => {
           return setViewedUserGameEntries(e.map( (entry) => {
@@ -94,7 +94,6 @@ function App():React.JSX.Element {
   }
 
   const handleSearchGameDetails = async (searchText: string) => {
-    // const searchedTitle = "nier"
     try {
       if (!auth.currentUser) throw "no current user";
       const idToken: string = await auth.currentUser.getIdToken(true);

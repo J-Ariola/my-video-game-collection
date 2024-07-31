@@ -70,16 +70,17 @@ function App():React.JSX.Element {
   const handleViewedUserGameEntries = async (gameDetails: GameDetails[]) => {
     try{
       if (!auth.currentUser) throw "no current user";
-        const idToken: string = await auth.currentUser.getIdToken(true);
-        // console.log("Getting Token for handling view");
+        const { uid } = auth.currentUser;
         await Promise.all(gameDetails.map((gameDetail) => {
-          return fetch(`${BASE_URL}/user-entries/${gameDetail.guid}`, {
+          return fetch(`${BASE_URL}/user-entries/${gameDetail.guid}?uid=${uid}`, {
             method: "GET",
-            headers: {Authorization: 'Bearer ' + idToken}
           })
         }))
-        .then((entries) => {
-          return Promise.all(entries.map((entry) => entry.json()))
+        .then((responses) => {
+          return Promise.all(responses.map((res) => {
+            if (res.status === 200) return res.json();
+            else return null;
+            }))
         })
         .then((e) => {
           return setViewedUserGameEntries(e.map( (entry) => {

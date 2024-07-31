@@ -12,7 +12,6 @@ const BASE_URL: string | null = import.meta.env.VITE_BASE_URL;
 const searchDelayTime: number = 1000;
 
 function App():React.JSX.Element {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [gameDetails, setGameDetails] = useState<GameDetails[]> ([]);
   const [searchText, setSearchText] = useState<string>("");
   const [viewedUserGameEntries, setViewedUserGameEntries] = useState<number[]>([]);
@@ -44,11 +43,9 @@ function App():React.JSX.Element {
   const handleIsLoggedIn = () : void => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
-        setIsLoggedIn(false);
         return navigate("/login");
       }
       const userIdToken: string = await user.getIdToken(true);
-      setIsLoggedIn(true);
       handleOnMount(userIdToken);
       await handleSearchGameDetails("");
     })

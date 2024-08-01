@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import Header from './components/Header';
-import { auth } from "./config/firebaseConfig"
+import Header from '../components/Header';
+import { auth } from "../config/firebaseConfig"
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Grid } from '@mui/material';
-import { GameDetails } from './globals';
-import GameCardSmall from './components/GameCardSmall';
+import { GameDetails } from '../globals';
+import GameCardSmall from '../components/GameCardSmall';
 
 const BASE_URL: string | null = import.meta.env.VITE_BASE_URL;
 const searchDelayTime: number = 1000;

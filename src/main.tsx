@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
+import App from './pages/App.tsx';
 import Login from './Login.tsx';
-import MyGames from './MyGames.tsx';
+import MyGames from './pages/MyGames.tsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 

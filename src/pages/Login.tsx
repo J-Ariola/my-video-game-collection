@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginEmailPassword, createAccount } from "./config/firebaseConfig"
+import { loginEmailPassword, createAccount } from "../config/firebaseConfig"
 // @MUI
 import {
   Box,

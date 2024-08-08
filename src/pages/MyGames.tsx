@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import Header from './components/Header';
+import Header from '../components/Header';
 import { Box, Container, Grid } from '@mui/material';
-import { GameDetails, GameEntry } from './globals';
-import { auth } from './config/firebaseConfig';
+import { GameDetails, GameEntry } from '../globals';
+import { auth } from '../config/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-import GameCardSmall from './components/GameCardSmall';
+import GameCardSmall from '../components/GameCardSmall';
 
 const BASE_URL: string | null = import.meta.env.VITE_BASE_URL;
 

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GameDetails } from "../globals";
@@ -19,20 +19,24 @@ function Games():React.JSX.Element {
     setGameDetails(data);
   }
   return (
-    <Box>
+    <Container maxWidth="md">
       {gameDetails ? 
-      <Grid container>
-        <Typography variant="h3">{gameDetails.name}</Typography> 
-          <Box sx={{display: "flex"}}>
-            <Box sx={{display: "flex", width: "14rem", overflow: "hidden"}}>
+      <Grid container columns={{xs: 1, md: 2}}>
+      <Grid item xs={1} sx={{display: "flex", justifyContent: "center"}}>
+            <Box sx={{width: "14rem", overflow: "hidden"}}>
               <img style={{width: "100%"}} src={gameDetails.imgURL ? gameDetails.imgURL : ""}/>
             </Box>
+      </Grid>
+      <Grid item xs={1}>
+          <Box sx={{display: "flex", flexDirection: "column", justifyContent: "space-evenly"}}>
+            <Typography variant="h3">{gameDetails.name}</Typography> 
             <Typography variant="body1" noWrap={false}>{gameDetails.deck}</Typography>
             <Typography variant="body2">{new Date(gameDetails.original_release_date as unknown as string).toISOString().split("T")[0]}</Typography>
           </Box>
+        </Grid>
       </Grid>:
       <></>}
-    </Box>
+    </Container>
   );
     
 }

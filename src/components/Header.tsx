@@ -19,6 +19,7 @@ import Logout from '@mui/icons-material/Logout';
 import { logout } from '../config/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import SearchBar from './SearchBar';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -216,6 +217,7 @@ export default function PrimarySearchAppBar(props: Props): React.JSX.Element {
               onChange={(e) => searchBarOnChange(e.target.value)}
             />
           </Search>
+          <SearchBar/>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton

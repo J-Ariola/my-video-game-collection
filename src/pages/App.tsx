@@ -19,7 +19,7 @@ function App():React.JSX.Element {
   const navigate = useNavigate();
 
   useEffect(() => {
-    handleIsLoggedIn();
+    // handleIsLoggedIn();
   }, []);
 
   useEffect(() => {
@@ -92,14 +92,14 @@ function App():React.JSX.Element {
 
   const handleSearchGameDetails = async (searchText: string) => {
     try {
-      if (!auth.currentUser) throw "no current user";
-      const idToken: string = await auth.currentUser.getIdToken(true);
+      // if (!auth.currentUser) throw "no current user";
+      // const idToken: string = await auth.currentUser.getIdToken(true);
       const gameData = await fetch (`${BASE_URL}/game-details?title=${searchText}`, {
         method: "GET",
-        headers: {Authorization: 'Bearer ' + idToken}
+        // headers: {Authorization: 'Bearer ' + idToken}
       });
       const convertedData:GameDetails[] = await gameData.json();
-      await handleViewedUserGameEntries(convertedData);
+      // await handleViewedUserGameEntries(convertedData);
       setGameDetails(convertedData);
     } catch (e) {
       console.error(e);

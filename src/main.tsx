@@ -6,6 +6,7 @@ import MyGames from './pages/MyGames.tsx';
 import Games from './pages/Games.tsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import New from './pages/New.tsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/games/:guid",
     element: <Games/>,
+  },
+  {
+    path: "/new",
+    element: <New/>
   },
   {
     path: "*",

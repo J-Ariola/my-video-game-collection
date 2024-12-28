@@ -3,57 +3,57 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
+    --background: 0 0% 100%; /* Light background for normal mode */
+    --foreground: 0 0% 3.9%; /* Dark foreground for normal mode */
+    --card: 0 0% 100%; /* Light card background */
+    --card-foreground: 0 0% 3.9%; /* Dark card text */
+    --popover: 0 0% 100%; /* Light popover background */
+    --popover-foreground: 0 0% 3.9%; /* Dark popover text */
+    --primary: 197 76% 45%; /* Primary color (blue: #1976d2) */
+    --primary-foreground: 0 0% 98%; /* Light text on primary color */
+    --secondary: 0 0% 96.1%; /* Secondary color (lighter complementary color: cyan) */
+    --secondary-foreground: 0 0% 9%; /* Dark text for secondary color */
+    --muted: 0 0% 96.1%; /* Muted color (lighter gray) */
+    --muted-foreground: 0 0% 45.1%; /* Muted text */
+    --accent: 12 76% 61%; /* Accent color (orange for contrast) */
+    --accent-foreground: 0 0% 9%; /* Dark text for accent color */
+    --destructive: 0 84.2% 60.2%; /* Destructive action color (red) */
+    --destructive-foreground: 0 0% 98%; /* Light text for destructive color */
+    --border: 0 0% 89.8%; /* Light border color */
+    --input: 0 0% 89.8%; /* Light input fields */
+    --ring: 0 0% 3.9%; /* Ring color for focus states */
+    --chart-1: 12 76% 61%; /* Chart colors */
     --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
+    --chart-3: 197 37% 24%; /* Blue chart color */
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem; /* Border radius for rounded corners */
   }
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
+    --background: 0 0% 3.9%; /* Dark background for dark mode */
+    --foreground: 0 0% 98%; /* Light foreground for dark mode */
+    --card: 0 0% 3.9%; /* Dark card background */
+    --card-foreground: 0 0% 98%; /* Light card text */
+    --popover: 0 0% 3.9%; /* Dark popover background */
+    --popover-foreground: 0 0% 98%; /* Light popover text */
+    --primary: 197 76% 55%; /* Primary color (blue for dark mode) */
+    --primary-foreground: 0 0% 9%; /* Dark text on primary color */
+    --secondary: 0 0% 14.9%; /* Dark secondary color */
+    --secondary-foreground: 0 0% 98%; /* Light text for secondary in dark mode */
+    --muted: 0 0% 14.9%; /* Muted background in dark mode */
+    --muted-foreground: 0 0% 63.9%; /* Muted text in dark mode */
+    --accent: 12 76% 61%; /* Accent color (orange for dark mode) */
+    --accent-foreground: 0 0% 98%; /* Light text on accent */
+    --destructive: 0 62.8% 30.6%; /* Destructive color (red) */
+    --destructive-foreground: 0 0% 98%; /* Light text for destructive color */
+    --border: 0 0% 14.9%; /* Dark border color */
+    --input: 0 0% 14.9%; /* Dark input fields */
+    --ring: 0 0% 83.1%; /* Ring color for focus states in dark mode */
+    --chart-1: 220 70% 50%; /* Blue chart color for dark mode */
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 @layer base {

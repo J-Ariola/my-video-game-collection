@@ -1,7 +1,9 @@
 import NewHeader from "@/components/NewHeader";
 
-export default function New() {
+const New = () => {
   return (
     <NewHeader/>
   )
 }
+
+export default New;

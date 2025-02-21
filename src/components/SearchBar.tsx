@@ -1,27 +1,18 @@
-import { Box, InputAdornment, TextField } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import { Search } from "lucide-react";
+import { Input } from "./ui/input";
+import { cn } from "@/lib/utils";
 
-export default function SearchBar(){
-  return (<Box
-    >
-
-    <TextField
-      placeholder="Search"
-      size="small"
-      variant="outlined"
-      sx={{
-        '& .MuiOutlinedInput-root': {
-            backgroundColor: 'rgba(96 165 250)', 
-          },
-      }}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon/>
-          </InputAdornment>
-        )
-      }}
-      />
-
-  </Box>)
+interface Props {
+  className?: string;
 }
+
+const SearchBar:React.FC<Props> = ({className}):JSX.Element => {
+  return (
+    <div className={cn("relative", className)}>
+      <Search className="absolute h-10 left-2"/>
+      <Input type="search" placeholder="Search..." className="justify-self-center pl-10"/>
+    </div>
+  )
+}
+
+export default SearchBar;
